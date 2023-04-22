@@ -28,29 +28,22 @@
 						<form id="login-form" class="form" method="POST" modelAttribute="register">
 							<h3 class="text-center text-info">Register</h3>
 							<div class="form-group">
-								<label for="firstname" class="text-info">First Name:</label><br>
-								<input type="text" name="firstname" id="firstname"
+								<label for="name" class="text-info">Name:</label><br>
+								<input type="text" name="name" id="name"
 									class="form-control" required>
 							</div>
 							<div class="form-group">
-								<label for="lastname" class="text-info">Last Name:</label><br>
-								<input type="text" name="lastname" id="lastname"
+								<label for="username" class="text-info"> Username:</label><br>
+								<input type="text" name="username" id="username"
 									class="form-control" required>
 							</div>
 							<div class="form-group">
-								<label for="lastname" class="text-info">Email:</label><br>
+								<label for="email" class="text-info">Email:</label><br>
 								<input type="email" name="email" id="email" class="form-control">
 							</div>
 							<div class="form-group">
 								<label for="password" class="text-info">Password:</label><br>
 								<input type="password" name="password" id="password"
-									class="form-control" required>
-							</div>
-
-							<div class="form-group">
-								<label for="password" class="text-info">Confirm
-									Password:</label><br> <input type="password"
-									name="confirmpassword" id="confirmpassword"
 									class="form-control" required>
 							</div>
 							<div class="form-group">

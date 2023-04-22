@@ -35,7 +35,7 @@
 			<b style="font-size: 30">WELCOME</b></br> You are Seconds away from
 			earning your own money!
 		</p>
-		<a style= color: white; font-size: 30"
+		<a style= "color: white; font-size: 30"
 			class="btn btn-outline-warning btn-lg" href="/login" role="button">Get
 			Started</a>
 	</div>
