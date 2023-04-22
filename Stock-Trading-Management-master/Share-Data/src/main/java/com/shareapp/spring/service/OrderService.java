@@ -41,6 +41,7 @@ public class OrderService {
 		return orderList;
 	}
 
+
 	public double calculateCost(Share share,Order order,String category) {
 		double amt = 0.0;
 		if(category.equalsIgnoreCase("Buy")) {

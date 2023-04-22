@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -10,6 +11,14 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Shares List</title>
+<style>
+  .center_div{
+    margin: 60px auto;
+    padding-left:40px;
+    width:80% /* value of your choice which suits your alignment */
+    
+}
+</style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" class="navbar navbar-default navbar-fixed-top">
@@ -29,52 +38,47 @@
 
 
 
-
-    <form>
+    <div class="center_div">
+    <form action="/orders">
       <div class="form-row">
         <div class="form-group col-md-3">
           <label for="share_name">Share name</label>
-          <input type="text" class="form-control" id="share_name" value="share name">
+          <input type="text" class="form-control" id="share_name" value="${order.share_name}" disabled>
         </div>
-        <div class="form-group col-md-1">
-          <label for="quantity">Quantity</label>
-          <input type="number" class="form-control" id="quantity" value="0">
-        </div>
-      </div>
-      <div class="form-group col-md-1">
-        <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="1234 Main St">
-      </div>
-      <div class="form-group">
-        <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputCity">City</label>
-          <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputState">State</label>
-          <select id="inputState" class="form-control">
-            <option selected>Choose...</option>
-            <option>...</option>
-          </select>
-        </div>
-        <div class="form-group col-md-2">
-          <label for="inputZip">Zip</label>
-          <input type="text" class="form-control" id="inputZip">
-        </div>
+             <div class="form-group col-md-1">
+               <label for="price">Price</label>
+               <input type="number" class="form-control" id="price" value="${order.share_price}" disabled>
+             </div>
+             <div class="form-group col-md-1">
+               <label>Quantity</label>
+               <input type="number" class="form-control" id="quantity" min="0" max="${order.quantity}" value="0">
+             </div>
+
+       </div>
+
+      <div class="form-row">
+        <label for="total">Total Price: </label>
+        <p id="total">0</p>
       </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+
+
+      <button type="submit" class="btn btn-primary">SELL</button>
     </form>
+  </div>
+    <script>
+      console.log("hello")
+      let quantity=document.getElementById("quantity");
+      quantity.addEventListener("input",(event)=>{
+        let price=document.getElementById("price");
+        let total=document.getElementById("total");
+        console.log(price.value);
+        console.log(quantity.value);
+        // console.log(quantity.nodeValue*price.nodeValue)
+        total.innerHTML=""+(quantity.value*price.value);
+      })
+      
+    </script>
 </body>
 </html>

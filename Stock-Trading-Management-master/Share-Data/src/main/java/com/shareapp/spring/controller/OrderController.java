@@ -2,17 +2,21 @@ package com.shareapp.spring.controller;
 
 import com.shareapp.spring.service.CommisionService;
 import com.shareapp.spring.service.OrderService;
+import com.shareapp.spring.service.SplitQuery;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.shareapp.spring.dao.OrderRepository;
 import com.shareapp.spring.model.Order;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URL;
 import java.util.List;
 
 @Controller
@@ -26,7 +30,7 @@ public class OrderController {
 	@Autowired
 	private CommisionService commisionService;
 
-	Order order;
+
 //	DATA IN JSON FORMAT
 //	@RequestMapping(value="/orders",method=RequestMethod.GET)
 //	@ResponseBody
@@ -66,9 +70,12 @@ public String orderDisplay(ModelMap model,HttpServletRequest request) {
 }
 
 	@RequestMapping(value="/sell_shares",method=RequestMethod.GET)
-	public String show_list(ModelMap model,  HttpServletRequest request) {
-
-
+	public String sell_summary(ModelMap model, @RequestParam(name="share_name") String share_name,@RequestParam(name="quantity") String quantity,@RequestParam(name="price") String price) {
+		Order order=new Order();
+		order.setShare_name(share_name);
+		order.setShare_price(Double.parseDouble(price));
+		order.setQuantity(Integer.parseInt(quantity));
+		model.put("order",order);
 		return "sell_page";
 	}
 

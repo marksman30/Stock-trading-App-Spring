@@ -31,8 +31,8 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">share_name</th>
-          <th scope="col">price</th>
           <th scope="col">quantity</th>
+          <th scope="col">price</th>
           <th scope="col">sell</th>
         </tr>
       </thead>
@@ -47,7 +47,7 @@
                 <td>${order.share_name}</td>
                 <td>${order.quantity}</td>
                 <td>${order.share_price}</td>
-                <td><a href="/sell_shares?share_id=${order.share_id}" class="btn btn-primary btn-sm active">Sell</a></td>
+                <td><a href="/sell_shares?share_name=${order.share_name}&quantity=${order.quantity}&price=${order.share_price}" class="btn btn-primary btn-sm active">Sell</a></td>
 
             </tr>
         </c:forEach>
