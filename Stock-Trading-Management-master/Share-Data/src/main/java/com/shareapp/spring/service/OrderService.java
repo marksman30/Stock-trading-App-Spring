@@ -41,6 +41,36 @@ public class OrderService {
 		return orderList;
 	}
 
+	public void sell_share(int share_id,int sell_quantity,HttpServletRequest request) throws SQLException {
+		HttpSession session=request.getSession();
+		Connection connection =Jdbc.JdbcConnect();
+		String query="select quantity from orders where user_id="+session.getAttribute("uid")+" and share_id="+share_id+";";
+		Statement st1 = connection.createStatement();
+		ResultSet rs =st1.executeQuery(query);
+		int quantity=0;
+		while(rs.next())
+		{
+			quantity=rs.getInt("quantity");
+		}
+
+
+		if(sell_quantity>quantity)
+		{
+			return;
+		}
+		else if(sell_quantity==quantity)
+		{
+			query="delete from orders where user_id="+session.getAttribute("uid")+" and share_id="+share_id+";";
+			st1.executeUpdate(query);
+		}
+		else
+		{
+			query="update orders set quantity="+(quantity-sell_quantity)+" where user_id="+session.getAttribute("uid")+" and share_id="+share_id+";";
+			st1.executeUpdate(query);
+		}
+		connection.close();
+		return;
+	}
 
 	public double calculateCost(Share share,Order order,String category) {
 		double amt = 0.0;
@@ -51,5 +81,31 @@ public class OrderService {
 		}
 
 		return amt;
+	}
+
+	public void purchase(int share_id,int sell_quantity,HttpServletRequest request) throws SQLException
+	{
+		HttpSession session=request.getSession();
+		Connection connection =Jdbc.JdbcConnect();
+		String query="select count(*) from orders where user_id="+session.getAttribute("uid")+" and share_id="+share_id+";";
+		Statement st = connection.createStatement();
+		ResultSet rs =st.executeQuery(query);
+		int share_present=0;
+		while(rs.next())
+		{
+			share_present=rs.getInt("count(*)");
+		}
+		if(share_present>0)
+		{
+			query="update orders set quantity=quantity+"+sell_quantity+" where user_id="+session.getAttribute("uid")+" and share_id="+share_id+";";
+			st.executeUpdate(query);
+		}
+		else
+		{
+			query="insert into orders (user_id,share_id,quantity) values("+session.getAttribute("uid")+","+share_id+","+sell_quantity+")";
+			st.executeUpdate(query);
+		}
+		connection.close();
+		return;
 	}
 }

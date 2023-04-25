@@ -4,8 +4,7 @@ create table register(
     name varchar(50),
     user_name varchar(50),
     email varchar(50),
-    password varchar(50),
-    confirmpassword varchar(50)
+    password varchar(50)
 );
 
 

@@ -31,7 +31,7 @@
           <a class="nav-item nav-link active" style="font-weight: bold" href="/inboard">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link active" style="font-weight: bold" href="/orders">Orders</a>
           <a class="nav-item nav-link active" style="font-weight: bold" href="/product">Trade</a>
-          <a style="margin-left: 1000px"class="nav-item nav-link active" href="/">Logout</a>
+          <a style="margin-left: 1000px"class="nav-item nav-link active" href="/logout">Logout</a>
         </div>
       </div>
     </nav>
@@ -39,21 +39,25 @@
 
 
     <div class="center_div">
-    <form action="/orders">
+    <form action="/sell" method="POST">
       <div class="form-row">
+        <div class="form-group col-md-1">
+          <label for="share_id">Share id</label>
+          <input type="number" name="share_id" class="form-control" id="share_id" value="${order.share_id}" readonly>
+        </div>
         <div class="form-group col-md-3">
           <label for="share_name">Share name</label>
-          <input type="text" class="form-control" id="share_name" value="${order.share_name}" disabled>
+          <input type="text" name="share_name" class="form-control" id="share_name" value="${order.share_name}" readonly>
         </div>
       </div>
       <div class="form-row">
              <div class="form-group col-md-1">
                <label for="price">Price</label>
-               <input type="number" class="form-control" id="price" value="${order.share_price}" disabled>
+               <input type="number" name="price" class="form-control" id="price" value="${order.share_price}" readonly>
              </div>
              <div class="form-group col-md-1">
                <label>Quantity</label>
-               <input type="number" class="form-control" id="quantity" min="0" max="${order.quantity}" value="0">
+               <input type="number" name="quantity" class="form-control" id="quantity" min="0" step=1 max="${order.quantity}" value="0">
              </div>
 
        </div>

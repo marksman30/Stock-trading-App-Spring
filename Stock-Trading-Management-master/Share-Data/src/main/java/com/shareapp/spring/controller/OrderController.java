@@ -1,8 +1,8 @@
 package com.shareapp.spring.controller;
 
 import com.shareapp.spring.service.CommisionService;
+import com.shareapp.spring.service.Jdbc;
 import com.shareapp.spring.service.OrderService;
-import com.shareapp.spring.service.SplitQuery;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +17,7 @@ import com.shareapp.spring.model.Order;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -59,26 +60,55 @@ public class OrderController {
 @RequestMapping(value="/orders",method=RequestMethod.GET)
 public String orderDisplay(ModelMap model,HttpServletRequest request) {
 	List<Order> orderList=orderService.ShowOrderList(request);
-	for(Order o:orderList) {
-		System.out.println(o.getShare_id());
-		System.out.println(o.getShare_name());
-		System.out.println(o.getQuantity());
-		System.out.println(o.getShare_price());
-	}
+//	for(Order o:orderList) {
+//		System.out.println(o.getShare_id());
+//		System.out.println(o.getShare_name());
+//		System.out.println(o.getQuantity());
+//		System.out.println(o.getShare_price());
+//	}
 	model.put("orderList",orderList);
 	return "sell";
 }
 
 	@RequestMapping(value="/sell_shares",method=RequestMethod.GET)
-	public String sell_summary(ModelMap model, @RequestParam(name="share_name") String share_name,@RequestParam(name="quantity") String quantity,@RequestParam(name="price") String price) {
+	public String sell_summary(ModelMap model, @RequestParam(name="share_name") String share_name,@RequestParam(name="quantity") String quantity,@RequestParam(name="price") String price,@RequestParam(name="share_id") int share_id) {
 		Order order=new Order();
 		order.setShare_name(share_name);
 		order.setShare_price(Double.parseDouble(price));
 		order.setQuantity(Integer.parseInt(quantity));
+		order.setShare_id(share_id);
 		model.put("order",order);
 		return "sell_page";
 	}
 
+	@RequestMapping(value="/sell",method = RequestMethod.POST)
+	public String sellShare(HttpServletRequest request,@RequestParam("share_name") String shareName, @RequestParam("price") Double price,@RequestParam("quantity") int quantity,@RequestParam("share_id") int share_id) {
+		try {
+			orderService.sell_share(share_id,quantity,request);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+		return "redirect:/orders";
+	}
+
+	@RequestMapping(value="/purchase", method=RequestMethod.POST)
+	public String purchaseShare(HttpServletRequest request,@RequestParam("quantity") int quantity,@RequestParam("id") int share_id) {
+		System.out.println("xxx");
+		System.out.println(quantity);
+		System.out.println(share_id);
+		try
+		{
+			orderService.purchase(share_id,quantity,request);
+		}
+		catch(SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		return "redirect:/orders";
+
+	}
 ////	@RequestMapping(value="/calculateCost",method = RequestMethod.POST)
 //	public String calculateShareCost(@ModelAttribute("order") Order order,ModelMap model, BindingResult bindingResult, HttpServletRequest request) throws SQLException {
 //		String result = SessionAlive.redirectPage(model,request);

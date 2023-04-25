@@ -21,6 +21,9 @@ public class LoginController {
 	@Autowired
     LoginService service;
 
+		
+	ModelMap global_model=new ModelMap();
+
 	@RequestMapping(value="/",method = RequestMethod.GET)
 	public String showWelcomePage(ModelMap model) {
 		return "welcome";
@@ -69,7 +72,7 @@ public class LoginController {
 
 
 
-		model.put("usr",login.getUsername());
+		
 		HttpSession session= request.getSession();
 		session.setAttribute("uid",usr_id);
 		return "redirect:/inboard";

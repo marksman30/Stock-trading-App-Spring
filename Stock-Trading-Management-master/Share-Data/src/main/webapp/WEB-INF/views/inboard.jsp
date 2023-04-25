@@ -26,7 +26,7 @@
       <a class="nav-item nav-link active" style="font-weight: bold" href="/inboard">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link active" style="font-weight: bold" href="/orders">Orders</a>
       <a class="nav-item nav-link active" style="font-weight: bold" href="/product">Trade</a>
-      <h5 style="margin-left: 100px; font-weight: bold; color: #ffd571">Welcome ${uid}</h5>
+      <h5 style="margin-left: 100px; font-weight: bold; color: #ffd571">Welcome ${usr}</h5>
       
       <a style="margin-left: 500px; font-weight: bold"class="nav-item nav-link active" href="/logout">Logout</a>
     </div>
