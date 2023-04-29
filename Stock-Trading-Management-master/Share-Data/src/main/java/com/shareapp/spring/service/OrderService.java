@@ -72,16 +72,7 @@ public class OrderService {
 		return;
 	}
 
-	public double calculateCost(Share share,Order order,String category) {
-		double amt = 0.0;
-		if(category.equalsIgnoreCase("Buy")) {
-			amt = order.getQuantity()*share.getPrice();
-		} else {
-			amt = order.getQuantity()*share.getPrice();
-		}
 
-		return amt;
-	}
 
 	public void purchase(int share_id,int sell_quantity,HttpServletRequest request) throws SQLException
 	{
